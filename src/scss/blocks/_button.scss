@@ -1,0 +1,19 @@
+.button {
+  border: none;
+  
+  &:hover {
+    cursor: pointer;
+    text-shadow: 0 0 10px rgba(255,255,255, 0.5);
+  }
+  
+  &--add {
+    margin-left: 20px;
+    font-size: 42px;
+    color: $white;
+    background-color: $blue;
+  
+    &:active {
+      background-color: darken($blue, 10%);
+    }
+  }
+}

@@ -1,0 +1,11 @@
+.header {
+  height: 120px;
+  background-color: $blue;
+  
+  &__content {
+    @extend .container;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+}

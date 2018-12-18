@@ -1,0 +1,13 @@
+.chat-frame {
+  min-height: 1000px;
+  display: flex;
+  flex-direction: column;
+  
+  &__field {
+    @extend .container;
+    border: 2px solid $dark;
+    flex: 1 0 auto;
+    position: relative;
+    padding: 0;
+  }
+}
