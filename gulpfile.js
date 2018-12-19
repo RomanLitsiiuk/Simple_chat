@@ -63,7 +63,7 @@ gulp.task('clean', (done) => {
 gulp.task('html', function () {
   return gulp.src(path.src.html)
     .pipe(htmlReplace({
-      css: '../css/app.min.css'
+      css: './css/app.min.css'
     }))
     .pipe(gulp.dest(path.dist.html))
     .pipe(browserSync.stream());

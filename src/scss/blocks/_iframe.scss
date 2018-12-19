@@ -8,8 +8,9 @@
   border: 1px solid $brown;
   color: $dark;
   display: inline-block;
+  user-select: none;
   
-  &--drug {
+  &--drag {
     position: absolute;
   }
   
@@ -32,6 +33,31 @@
     height: 210px;
     padding: 10px;
     box-sizing: border-box;
+    user-select: none;
+    position: relative;
+  }
+  
+  &__close {
+    font-family: Arial;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 2px 0;
+    background-color: $brown;
+    
+    &::after {
+      content: 'X';
+      color: $white;
+      padding: 5px;
+    }
+    
+    &:hover {
+      cursor: pointer;
+    }
+    
+    &:active {
+      background-color: lighten($lightBrown, 10%);
+    }
   }
   
   &__content {
@@ -42,6 +68,7 @@
     font-family: 'Roboto Regular';
     padding-bottom: 5px;
     font-size: 14px;
+    user-select: none;
     
     &--heading {
       font-family: "Roboto Bold";
@@ -77,6 +104,7 @@
     font-family: "Roboto Bold";
     display: flex;
     align-items: center;
+    user-select: none;
   }
   
   &__send {
@@ -84,6 +112,7 @@
     color: $white;
     border: none;
     padding: 5px 10px;
+    user-select: none;
     
     &:hover {
       cursor: pointer;

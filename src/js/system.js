@@ -36,6 +36,20 @@ class System extends Mediator {
     });
   }
 
+  removeFrame(name) {
+    const deleted = this.iframes.find((frame) => {
+      if (frame) {
+        return frame.name === name;
+      }
+    });
+    this.iframes.splice(this.iframes.indexOf(deleted), 0, null);
+    this.wrap.removeChild(deleted);
+    this.publish('receivedMessage', {
+      message: `[system]: ${name} left this conversation`,
+      type: 'system'
+    });
+  }
+
   render() {
     this.checkNewName();
     this.addButton.addEventListener('click', () => {
@@ -44,11 +58,13 @@ class System extends Mediator {
       }
     });
     window.addEventListener('message', (message) => {
-      if (message.data) {
+      if (message.data && typeof message.data !== 'object') {
         this.publish('receivedMessage', {
           message: message.data,
           type: 'user'
         });
+      } else if (message.data.hasOwnProperty('remove')) {
+        this.removeFrame(message.data.remove);
       }
     });
   }
