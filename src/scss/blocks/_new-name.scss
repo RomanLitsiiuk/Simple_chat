@@ -1,0 +1,15 @@
+.new-name {
+  margin-left: 30px;
+  margin-top: -4px;
+  font-family: "Roboto Regular";
+  color: $white;
+  
+  &__input {
+    border: none;
+    border-radius: 5px;
+    box-shadow: 3px 3px 8px rgba(0,0,0, .2) inset;
+    padding: 7px;
+    font-size: 18px;
+    width: 280px;
+  }
+}

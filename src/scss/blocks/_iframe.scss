@@ -41,6 +41,7 @@
   &__text {
     font-family: 'Roboto Regular';
     padding-bottom: 5px;
+    font-size: 14px;
     
     &--heading {
       font-family: "Roboto Bold";
@@ -50,7 +51,11 @@
     
     &--system {
       font-weight: bold;
-      font-size: 14px;
+    }
+    
+    &--own {
+      color: green;
+      font-weight: bold;
     }
   }
   

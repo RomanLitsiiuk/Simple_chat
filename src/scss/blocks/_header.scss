@@ -5,7 +5,16 @@
   &__content {
     @extend .container;
     height: 100%;
+    
+  }
+  
+  &__row {
     display: flex;
     align-items: center;
+    padding-top: 36px;
+  }
+  
+  &__error-wrap {
+    padding-left: 230px;
   }
 }

@@ -5,6 +5,7 @@ class IFrame {
     this.createTag = createTag;
     this.frame = this.createTag('iframe', 'iframe');
     this.chat = null;
+    this.isOwnMessage = false;
   }
 
   renderIframe() {
@@ -21,8 +22,6 @@ class IFrame {
       const heading = this.createTag('h3', 'iframe__text', 'iframe__text--heading');
       const messages = this.createTag('div', 'iframe__content');
       this.chat = messages;
-      /*const text1 = this.createTag('p', 'iframe__text');
-      const text2 = this.createTag('p', 'iframe__text');*/
       const inputWrap = this.createTag('div', 'iframe__input-wrap');
       const label = this.createTag('label', 'iframe__label');
       const input = this.createTag('input', 'iframe__input');
@@ -31,8 +30,6 @@ class IFrame {
       send.setAttribute('type', 'button');
       send.append('send');
       heading.append('Chat: ');
-      /*text1.append('[system] - iframe1 joined the conversation');
-      text2.append('[iFrame2] - who wants to come play soccer?');*/
       iframeDoc.body.appendChild(chat).appendChild(heading);
       chat.appendChild(messages);
       iframeDoc.body.appendChild(inputWrap).appendChild(label);
@@ -41,6 +38,7 @@ class IFrame {
       inputWrap.appendChild(send);
       send.addEventListener('click', () => {
         this.frame.contentWindow.parent.postMessage(`[${this.name}] - ${input.value}`);
+        this.isOwnMessage = true;
       });
     };
     if (this.system) {
@@ -48,26 +46,31 @@ class IFrame {
     }
     return this.frame;
   }
-  
+
   clearChat() {
     while (+this.chat.offsetHeight > 170) {
-      console.log(this.chat.children);
+      this.chat.removeChild(this.chat.children[0]);
     }
   }
 
   listenMessages() {
     this.system.subscribe('receivedMessage', (data) => {
       const message = this.createTag('p', 'iframe__text');
-      message.append(data);
+      message.append(data.message);
+      if (data.type === 'system') {
+        message.classList.add('iframe__text--system');
+      } else if (this.isOwnMessage) {
+        message.classList.add('iframe__text--own');
+        this.isOwnMessage = false;
+      }
       this.chat.appendChild(message);
       this.clearChat();
     });
-    this.system.subscribe('addNewIframe', (data) => {
-      const message = this.createTag('p', 'iframe__text', 'iframe__text--system');
-      message.append(`[system]: ${data} joined the conversation`);
-      message.fontWeight = 'bold';
-      this.chat.appendChild(message);
-      this.clearChat();
+  }
+
+  activateDragable() {
+    this.frame.addEventListener('mousedown', () => {
+    
     });
   }
 }

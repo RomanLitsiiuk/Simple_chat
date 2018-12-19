@@ -1,0 +1,10 @@
+.error {
+  color: red;
+  visibility: hidden;
+  transition: .2s;
+  
+  &--active {
+    visibility: visible;
+    transition: .2s;
+  }
+}
