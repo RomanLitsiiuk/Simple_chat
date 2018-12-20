@@ -4,6 +4,11 @@
   font-family: "Roboto Regular";
   color: $white;
   
+  &::after {
+    content: "*If it's empty, the name will be generated automatically";
+    padding-left: 10px;
+  }
+  
   &__input {
     border: none;
     border-radius: 5px;

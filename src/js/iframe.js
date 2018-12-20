@@ -43,20 +43,13 @@ class IFrame {
       this.frame.style.top = this.frame.offsetTop + 'px';
       this.frame.classList.add('iframe--drag');
       this.frame.style.zIndex = 999;
-      element.onmousemove = (e) => {
+      this.frame.contentWindow.onmousemove = (e) => {
         this.frame.style.left = parseInt(this.frame.style.left, 10) + e.pageX - event.pageX + 'px';
         this.frame.style.top = parseInt(this.frame.style.top, 10) + e.pageY - event.pageY + 'px';
       };
-      element.onmouseup = () => {
-        element.onmousemove = null;
-        element.onmouseup = null;
-        element.onmouseover = null;
-        this.frame.style.zIndex = 100;
-      };
-      element.onmouseover = () => {
-        element.onmousemove = null;
-        element.onmouseup = null;
-        element.onmouseup = null;
+      this.frame.contentWindow.onmouseup = () => {
+        this.frame.contentWindow.onmousemove = null;
+        this.frame.contentWindow.onmouseup = null;
         this.frame.style.zIndex = 100;
       };
     };
