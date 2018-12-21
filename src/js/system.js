@@ -10,12 +10,20 @@ class System extends Mediator {
     this.invalidName = false;
   }
 
-  checkFramesCount() {
-    return this.iframes.length + 1;
+  generateName() {
+    const lastNumber = this.iframes.reduce((prev, frame) => {
+      if (frame.name.indexOf('iFrame') === -1) {
+        return prev;
+      }
+      const number = parseInt(+frame.name.slice(frame.name.indexOf('e') + 1), 10);
+      return number > prev ? number : prev;
+    }, 0);
+    return `iFrame${lastNumber + 1}`;
   }
 
   addFrame(wrapper, name) {
-    const frame = new IFrame(name || `iFrame${this.checkFramesCount()}`, this).renderIframe();
+    this.generateName();
+    const frame = new IFrame(name || this.generateName(), this).renderIframe();
     this.iframes.push(frame);
     wrapper.append(frame);
     setTimeout(() => {
@@ -28,11 +36,9 @@ class System extends Mediator {
 
   removeFrame(name) {
     const deleted = this.iframes.find((frame) => {
-      if (frame) {
-        return frame.name === name;
-      }
+      return frame.name === name;
     });
-    this.iframes.splice(this.iframes.indexOf(deleted), 0, null);
+    this.iframes.splice(this.iframes.indexOf(deleted), 1);
     this.wrap.removeChild(deleted);
     this.publish('receivedMessage', {
       message: `[system]: ${name} left this conversation`,

@@ -86,11 +86,11 @@ class IFrame {
       label.appendChild(input);
       inputWrap.appendChild(send);
       send.addEventListener('click', () => {
-        this.frame.contentWindow.parent.postMessage(`[${this.name}] - ${input.value}`);
+        this.frame.contentWindow.parent.postMessage(`[${this.name}] - ${input.value}`, '*');
         this.isOwnMessage = true;
       });
       close.addEventListener('click', () => {
-        this.frame.contentWindow.parent.postMessage({remove: this.name});
+        this.frame.contentWindow.parent.postMessage({remove: this.name}, '*');
       });
       this.activateDragable(iframeDoc.body);
     };
