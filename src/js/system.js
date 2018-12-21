@@ -26,16 +26,6 @@ class System extends Mediator {
     }, 300);
   }
 
-  checkNewName() {
-    const error = document.querySelector('.error');
-    this.nameField.addEventListener('input', () => {
-      this.invalidName = this.iframes.some((frame) => {
-        return frame.name === this.nameField.value.trim();
-      });
-      this.invalidName ? error.classList.add('error--active') : error.classList.remove('error--active');
-    });
-  }
-
   removeFrame(name) {
     const deleted = this.iframes.find((frame) => {
       if (frame) {
@@ -50,10 +40,25 @@ class System extends Mediator {
     });
   }
 
+  static showValidationField(errorField, validStatus) {
+    validStatus ? errorField.classList.add('error--active') : errorField.classList.remove('error--active');
+  }
+
+  validate(name) {
+    this.invalidName = this.iframes.some((frame) => {
+      return frame.name === name;
+    });
+    return this.invalidName;
+  }
+
   render() {
-    this.checkNewName();
+    const error = document.querySelector('.error');
+    this.nameField.addEventListener('input', () => {
+      System.showValidationField(error, this.validate(this.nameField.value.trim()));
+    });
     this.addButton.addEventListener('click', () => {
-      if (!this.invalidName) {
+      System.showValidationField(error, this.validate(this.nameField.value.trim()));
+      if (!this.validate(this.nameField.value.trim())) {
         this.addFrame(this.wrap, this.nameField.value.trim());
       }
     });
